@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+
+**/application.properties
+**/application-local.properties
+
+target/
+node_modules/
+dist/
+build/
+*.log
+
+.idea/
+.vscode/
+.DS_Store

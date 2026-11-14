@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "startup-idea-platform-v2",
+		"name": "Startup Idea Validation Platform API",
+		"description": "Full Postman API collection for Startup Idea Validation Platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"alexfounder\",\n    \"email\": \"alex@startup.io\",\n    \"password\": \"Password@123\",\n    \"fullName\": \"Alex Founder\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "auth", "register" ]
+						}
+					}
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.environment.set(\"jwt_token\", jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usernameOrEmail\": \"alexfounder\",\n    \"password\": \"Password@123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "auth", "login" ]
+						}
+					}
+				},
+				{
+					"name": "Get Current User (Me)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "auth", "me" ]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. User Profile",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/profile",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "users", "profile" ]
+						}
+					}
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Alex J. Founder\",\n    \"password\": \"NewPassword@123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/profile",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "users", "profile" ]
+						}
+					}
+				},
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/users/health",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "users", "health" ]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Startup Ideas",
+			"item": [
+				{
+					"name": "Create Idea",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"MedAssist AI Copilot\",\n    \"industry\": \"Healthcare\",\n    \"targetAudience\": \"General Practitioners & Outpatient Clinics\",\n    \"stage\": \"Ideation\",\n    \"description\": \"An automated clinical decision copilot that summarizes medical records and warns physicians of rare drug-drug interactions.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ideas",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "ideas" ]
+						}
+					}
+				},
+				{
+					"name": "Get All User Ideas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ideas?search=&industry=All",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "ideas" ],
+							"query": [
+								{ "key": "search", "value": "" },
+								{ "key": "industry", "value": "All" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Idea by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ideas/1",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "ideas", "1" ]
+						}
+					}
+				},
+				{
+					"name": "Update Idea",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"MedAssist AI Copilot Pro\",\n    \"industry\": \"Healthcare\",\n    \"targetAudience\": \"Specialty Hospitals\",\n    \"stage\": \"MVP\",\n    \"description\": \"An enterprise automated clinical decision copilot that integrates with electronic health records (EHR).\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ideas/1",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "ideas", "1" ]
+						}
+					}
+				},
+				{
+					"name": "Delete Idea",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ideas/1",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "ideas", "1" ]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. AI Validation Analysis & Reports",
+			"item": [
+				{
+					"name": "Trigger AI Validation Scan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ideas/1/analyze",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "ideas", "1", "analyze" ]
+						}
+					}
+				},
+				{
+					"name": "Get Idea Analysis (Aggregated)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ideas/1/analysis",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "ideas", "1", "analysis" ]
+						}
+					}
+				},
+				{
+					"name": "Get Saved Report by Idea ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/ideas/1/report",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "ideas", "1", "report" ]
+						}
+					}
+				},
+				{
+					"name": "Get All Saved Reports",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/reports",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "reports" ]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Admin Management",
+			"item": [
+				{
+					"name": "Platform Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/stats",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "admin", "stats" ]
+						}
+					}
+				},
+				{
+					"name": "List All Platform Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/users",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "admin", "users" ]
+						}
+					}
+				},
+				{
+					"name": "List All Platform Ideas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/ideas",
+							"host": [ "{{baseUrl}}" ],
+							"path": [ "api", "admin", "ideas" ]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "jwt_token",
+			"value": ""
+		}
+	]
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to your Startup Idea Validation Platform account to monitor your dashboard.">
+    <title>Sign In - IdeaValidator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-rocket"></i> IdeaValidator
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="login.html" class="active">Login</a></li>
+                    <li><a href="register.html" class="btn-auth">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="glass-card">
+            <div class="form-header">
+                <h2>Welcome Back</h2>
+                <p>Enter credentials to access your validation portfolio</p>
+            </div>
+
+            <!-- SUCCESS/ERROR ALERTS -->
+            <div id="alert-error" class="alert alert-danger"></div>
+            <div id="alert-success" class="alert alert-success"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="usernameOrEmail" class="form-label">Username or Email</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="usernameOrEmail" class="form-input" placeholder="Enter username or email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-right-to-bracket"></i> Sign In
+                </button>
+
+                <!-- QUICK DEMO ACCESS HELPER -->
+                <div style="margin-top: 1.25rem; padding: 0.85rem; border-radius: 8px; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2); font-size: 0.82rem; text-align: left;">
+                    <span style="color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 0.4rem;">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Quick Demo Access:
+                    </span>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button type="button" onclick="fillCredentials('founder', 'password123')" style="cursor: pointer; background: rgba(255,255,255,0.06); padding: 0.35rem 0.65rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 0.78rem;">
+                            <i class="fa-solid fa-user"></i> Founder
+                        </button>
+                        <button type="button" onclick="fillCredentials('admin', 'admin123')" style="cursor: pointer; background: rgba(255,255,255,0.06); padding: 0.35rem 0.65rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 0.78rem;">
+                            <i class="fa-solid fa-shield-halved"></i> Admin
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="form-footer">
+                Don't have an account? <a href="register.html">Sign Up</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 IdeaValidator. Protected by JWT Security.</p>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+    <script>
+        function fillCredentials(user, pass) {
+            document.getElementById('usernameOrEmail').value = user;
+            document.getElementById('password').value = pass;
+        }
+    </script>
+</body>
+</html>

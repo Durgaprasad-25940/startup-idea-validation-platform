@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Validate your startup ideas instantly with our AI-powered validation engine, competitor analysis, and SWOT generators.">
+    <title>Startup Idea Validation Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 30%, var(--text-secondary) 70%, var(--color-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+            width: 100%;
+            padding: 0 1rem;
+        }
+        .feature-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            transition: var(--transition-smooth);
+            text-align: left;
+        }
+        .feature-card:hover {
+            border-color: var(--color-secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            display: inline-block;
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-rocket"></i> IdeaValidator
+            </a>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <!-- Nav items dynamically updated by JS -->
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li id="nav-login"><a href="login.html">Login</a></li>
+                    <li id="nav-register"><a href="register.html" class="btn-auth">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main style="flex-direction: column;">
+        <section class="hero">
+            <h1>Validate Your Startup Idea with AI Instantly</h1>
+            <p>Skip weeks of research. Get data-driven SWOT analysis, target audience insights, competitor mappings, and financial roadmap suggestions in seconds.</p>
+            <div class="cta-buttons" id="hero-actions">
+                <a href="register.html" class="btn-primary" style="width: auto;">Get Started for Free</a>
+            </div>
+        </section>
+
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>AI Idea Analysis</h3>
+                <p>Verify feasibility, identify risk scores, and view constructive technical recommendations for your startup ideas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                <h3>SWOT Generation</h3>
+                <p>Generate clean, dynamic Strengths, Weaknesses, Opportunities, and Threats models automatically.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-users-rays"></i></div>
+                <h3>Competitor Analysis</h3>
+                <p>Discover prospective competitors, analyze their weak points, and learn how to position your company to win.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 IdeaValidator. Built with Java 21, Spring Boot, MySQL, and Premium Web Aesthetics.</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.getElementById('nav-links');
+            const heroActions = document.getElementById('hero-actions');
+            
+            if (isAuthenticated()) {
+                const currentUser = getCurrentUser();
+                
+                // Update navigation for logged in users
+                navLinks.innerHTML = `
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#" onclick="logout(); return false;" class="btn-auth" style="background: linear-gradient(135deg, var(--color-danger) 0%, #f43f5e 100%); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">Logout (${currentUser.username})</a></li>
+                `;
+                
+                // Update hero actions
+                heroActions.innerHTML = `
+                    <a href="profile.html" class="btn-primary" style="width: auto;"><i class="fa-solid fa-user"></i> View Profile</a>
+                    <a href="#" class="btn-outline"><i class="fa-solid fa-gauge"></i> Go to Dashboard (Module 2)</a>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

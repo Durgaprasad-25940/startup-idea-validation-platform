@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View and manage your account details, security settings, and profile details on IdeaValidator.">
+    <title>My Profile - IdeaValidator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-rocket"></i> IdeaValidator
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="profile.html" class="active">Profile</a></li>
+                    <li><a href="#" onclick="logout(); return false;" class="btn-auth" style="background: linear-gradient(135deg, var(--color-danger) 0%, #f43f5e 100%); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main style="align-items: stretch; max-width: 1200px; width: 100%; margin: 0 auto;">
+        <div class="dashboard-container">
+            
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <ul class="sidebar-menu">
+                    <li class="active">
+                        <a href="profile.html"><i class="fa-solid fa-user-gear"></i> Profile Settings</a>
+                    </li>
+                    <li style="opacity: 0.5; cursor: not-allowed;" title="Available in Module 2">
+                        <a href="#" onclick="return false;"><i class="fa-solid fa-gauge"></i> Dashboard <span style="font-size: 0.75rem; background: var(--color-primary); color: white; padding: 2px 6px; border-radius: 50px; margin-left: auto;">M2</span></a>
+                    </li>
+                    <li style="opacity: 0.5; cursor: not-allowed;" title="Available in Module 2">
+                        <a href="#" onclick="return false;"><i class="fa-solid fa-plus"></i> Submit Idea <span style="font-size: 0.75rem; background: var(--color-primary); color: white; padding: 2px 6px; border-radius: 50px; margin-left: auto;">M2</span></a>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- CONTENT AREA -->
+            <section class="content-area">
+                <div class="form-header" style="text-align: left; margin-bottom: 2rem;">
+                    <h2>Account Profile</h2>
+                    <p>Review details and manage security settings</p>
+                </div>
+
+                <!-- SUCCESS/ERROR ALERTS -->
+                <div id="alert-error" class="alert alert-danger"></div>
+                <div id="alert-success" class="alert alert-success"></div>
+
+                <!-- METADATA INFORMATION GRID -->
+                <div class="profile-grid">
+                    <div class="profile-card">
+                        <h3>Username</h3>
+                        <p id="profile-username">Loading...</p>
+                    </div>
+                    <div class="profile-card">
+                        <h3>Email Address</h3>
+                        <p id="profile-email">Loading...</p>
+                    </div>
+                    <div class="profile-card">
+                        <h3>Account Role</h3>
+                        <p id="profile-role">Loading...</p>
+                    </div>
+                    <div class="profile-card">
+                        <h3>Joined On</h3>
+                        <p id="profile-created">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- EDIT PROFILE FORM -->
+                <form id="profile-update-form" style="margin-top: 3rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
+                    <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--text-primary); font-family: var(--font-heading);">Update Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="update-fullName" class="form-label">Full Name</label>
+                        <input type="text" id="update-fullName" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="update-password" class="form-label">New Password (leave blank to keep current)</label>
+                        <input type="password" id="update-password" class="form-input" placeholder="••••••••">
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width: auto; min-width: 150px;">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                    </button>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 IdeaValidator. Protected by JWT Security.</p>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
